@@ -2,6 +2,7 @@ package aop.aspect;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -18,7 +19,7 @@ public class MyLoggingAspect {
         System.out.println("Inside 2nd advice");
     }
 
-    //TODO: Method for one argument use wildcard (*), No argument (), All argument (..)
+    //TODO: Method for one argument use wildcard (*), No argument (), All argument (..)  --also--> com.dao.*.*(..)
     //wildcard method type
     @Before("execution( * updateAccount())")
     public void myUpdateAdvice() {
@@ -35,5 +36,20 @@ public class MyLoggingAspect {
     @Before("execution (public void get*())")
     public void myGetAnyAdvice() {
         System.out.println("Inside 2nd advice");
+    }
+
+    // ** (REUSE) Use same point cut at many advices. either copy paste || OR create a point cut decleration @Pointcut
+    @Pointcut("execution (public void get*())")
+    private void forDAOPackage() {
+    }
+
+    @Before("forDAOPackage()")
+    private void doSomethingAdvice() {
+    }
+
+    // **Combine pointcut using && || ! like if else
+    @Before("execution( private void getMsg() ) && !forDAOPackage())")
+    private void combinationAdvice() {
+
     }
 }
