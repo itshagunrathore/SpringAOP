@@ -10,9 +10,8 @@ public class MyMainConfig {
 
         AnnotationConfigApplicationContext configApplicationContext = new AnnotationConfigApplicationContext(SpringAopApplication.class);
         Dao dao = configApplicationContext.getBean("dao", Dao.class);
-        dao.getMsg();
-        dao.updateAccount();
-
-    }
+//        dao.getMsg();
+//        dao.updateAccount();
+        dao.getArgsMethod("Shagun");    }
 
 }
